@@ -5,13 +5,7 @@
 	$liveData = array();
 	$liveData = json_decode($read);
 	
-	fclose($handler);
+	fclose($handler);	
 	
-	array_multisort($liveData);	
-	
-	for($i=0; $i<count($liveData); $i++){
-		echo '<div>'.$liveData[$i][0].' - '.$liveData[$i][1].'</div>';
-	}
-	
-	//echo json_encode($liveData);
+	echo json_encode($liveData);
 ?>

@@ -24,7 +24,7 @@
 			}
 		})
 		
-		var template = $('<div>');
+		var template = $('<div>').addClass('song_container');
 		template.append($('<div>').addClass('song_info').append($('<span>').addClass('song')));
 		template.append($('<div>').addClass('icon play').append($('<a>').addClass('various iframe').attr('href', 'http://www.youtube.com/embed/vidid?autoplay=1')));
 		template.append($('<div>').addClass('icon pdf lyrics').append($('<a>').addClass('iframe')));
@@ -47,11 +47,13 @@
 		function write_song(arrSong){
 			var mySong = template.clone();
 			
+			mySong.attr('title', arrSong[0]).attr('artist', arrSong[1]);
+			
 			$('.song', mySong).append(arrSong[0] + ' - ' + arrSong[1]);
 			
 			var youtube = 'http://www.youtube.com/embed/' + arrSong[2] + '?autoplay=1';
-			var lyrics = 'pdf_load.php?id=' + arrSong[3] + '&type=lyrics';
-			var chord = 'pdf_load.php?id=' + arrSong[3] + '&type=chord';
+			var lyrics = '/scripts/pdf_load.php?id=' + arrSong[3] + '&type=lyrics';
+			var chord = '/scripts/pdf_load.php?id=' + arrSong[3] + '&type=chord';
 			
 			$('.play a', mySong).attr('href', youtube);
 			$('.lyrics a', mySong).attr('href', lyrics);
@@ -90,6 +92,21 @@
 			$('#new_song').css('display', 'none');
 			$('#btnSave').css('display', 'none');
 		});
+		
+		$('#txtSearch').keyup(function(){
+			if($(this).val() != ''){
+				var search_string = $(this).val();
+				$('.song_container').each(function(){
+					if($(this).attr('title').indexOf(search_string) == -1){
+						$(this).css('display', 'none');
+					} else {
+						$(this).css('display', '');
+					}
+				});
+			} else {
+				$('.song_container').css('display', '');
+			}
+		});
 	});
 </script>
 <title>Songs</title>
@@ -103,6 +120,9 @@
 
 <div id="content">
 	<div id="song_list">
+		<div id="searchbox">
+			<input type="text" id="txtSearch" />
+		</div>
 		<div id="song_list_header">
 			<div class="list_title">Songs</div>
 			<div class="list_header">Play</div>
