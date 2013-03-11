@@ -1,0 +1,44 @@
+#song_list_header div{
+	display: inline-block;
+}
+
+.list_title {
+	width: 495px;
+}
+
+.list_header {
+	width: 56px;
+}
+
+.song_info {
+	width: 500px;
+	display: inline-block;
+}
+
+.icon {
+	width: 61px;
+	display: inline-block;
+}
+
+.icon a{
+	background-image: url(/content/images/icons.png);
+	width: 26px;
+	height: 30px;
+	display: inline-block;
+}
+
+.icon.lyrics a{
+	background-position: -54px 0;
+}
+
+.icon.chord a{
+	background-position: -109px 0;
+}
+
+.icon.lead a{
+	background-position: -163px 0;
+}
+
+.icon.vocal a{
+	background-position: -218px 0;
+}
