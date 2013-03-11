@@ -1,7 +1,8 @@
 Setbuilder
 
-This webApp will allow Praise & Worship teams to communicate song/setlist
-information more easily.
+This webApp will allow Praise & Worship teams to communicate song/setlist information more easily.
+
+Admins will be able to add songs and upload files/URLs associated with those songs. Currently YouTube URLs and Lyric and Chord sheets can be associated with a song. Setlists will then be able to be created from songs and an e-mail can be automatically generated and sent to team members.
 
 More info to come.
 
