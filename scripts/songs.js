@@ -1,6 +1,6 @@
 var template = $('<div>').addClass('song_container');
 template.append($('<div>').addClass('song_info').append($('<span>').addClass('song')));
-template.append($('<div>').addClass('icon play').append($('<a>').addClass('various iframe').attr('href', 'http://www.youtube.com/embed/vidid?autoplay=1')));
+template.append($('<div>').addClass('icon play').append($('<a>').addClass('various iframe')));
 template.append($('<div>').addClass('icon pdf lyrics').append($('<a>').addClass('iframe')));
 template.append($('<div>').addClass('icon pdf chord').append($('<a>').addClass('iframe')));
 
@@ -17,8 +17,6 @@ function load_songs(){
 			songs = data;
 		}
 	});
-	
-	
 	
 	$('.icon.play a', template).fancybox({ type: 'iframe'});
 	$('.icon.pdf a', template).fancybox({ 
@@ -86,7 +84,7 @@ function load_songs(){
 function write_song(objSong){
 	var mySong = template.clone();
 	
-	mySong.attr('title', objSong.title).attr('artist', objSong.artist);
+	mySong.attr('id', objSong.id).attr('title', objSong.title).attr('artist', objSong.artist);
 	
 	$('.song', mySong).append(objSong.title + ' - ' + objSong.artist);
 	
@@ -94,7 +92,12 @@ function write_song(objSong){
 	var lyrics = '/scripts/pdf_load.php?id=' + objSong.id + '&type=lyrics';
 	var chord = '/scripts/pdf_load.php?id=' + objSong.id + '&type=chord';
 	
-	$('.play a', mySong).attr('href', youtube);
+	if(objSong.YouTube){
+		$('.play a', mySong).attr('href', youtube);
+	} else {
+		$('.play a', mySong).attr('href', '/scripts/pdf_load.php?vidid=' + objSong.YouTube + '&type=play&id=' + objSong.id);
+	}
+	
 	$('.lyrics a', mySong).attr('href', lyrics);
 	$('.chord a', mySong).attr('href', chord);
 	
