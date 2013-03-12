@@ -1,5 +1,15 @@
+#song_list {
+	margin-bottom: 25px;
+}
+
+#searchbox {
+	margin-bottom: 25px;
+}
+
 #song_list_header div{
 	display: inline-block;
+	font-size: larger;
+	font-weight: bold;
 }
 
 .list_title {
@@ -7,7 +17,7 @@
 }
 
 .list_header {
-	width: 56px;
+	width: 65px;
 }
 
 .song_info {
@@ -16,7 +26,7 @@
 }
 
 .icon {
-	width: 61px;
+	width: 70px;
 	display: inline-block;
 }
 

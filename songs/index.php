@@ -9,106 +9,13 @@
 <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 
 <?php include('../includes/headfiles.php'); ?>
+<script type="text/javascript" src="/scripts/songs.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// Title, Artist, YouTubeID, PDFID
-		var songs = new Array();
-		
-		$.ajax({
-			type: "GET",
-			dataType: "json",
-			url: "/scripts/getSongs.php",
-			async: false,
-			success: function(data){
-				songs = data;
-			}
-		})
-		
-		var template = $('<div>').addClass('song_container');
-		template.append($('<div>').addClass('song_info').append($('<span>').addClass('song')));
-		template.append($('<div>').addClass('icon play').append($('<a>').addClass('various iframe').attr('href', 'http://www.youtube.com/embed/vidid?autoplay=1')));
-		template.append($('<div>').addClass('icon pdf lyrics').append($('<a>').addClass('iframe')));
-		template.append($('<div>').addClass('icon pdf chord').append($('<a>').addClass('iframe')));
-		
-		$('.icon.play a', template).fancybox({ type: 'iframe'});
-		$('.icon.pdf a', template).fancybox({ 
-			type: 'iframe',
-			autoSize : false,
-			//height: $(window).height(),
-			beforeShow : function(){
-				// code to resize fancybox goes here
-			} 
-		});
-		
-		for(var i=0; i<songs.length; i++){
-			write_song(songs[i]);
-		}
-		
-		function write_song(arrSong){
-			var mySong = template.clone();
-			
-			mySong.attr('title', arrSong[0]).attr('artist', arrSong[1]);
-			
-			$('.song', mySong).append(arrSong[0] + ' - ' + arrSong[1]);
-			
-			var youtube = 'http://www.youtube.com/embed/' + arrSong[2] + '?autoplay=1';
-			var lyrics = '/scripts/pdf_load.php?id=' + arrSong[3] + '&type=lyrics';
-			var chord = '/scripts/pdf_load.php?id=' + arrSong[3] + '&type=chord';
-			
-			$('.play a', mySong).attr('href', youtube);
-			$('.lyrics a', mySong).attr('href', lyrics);
-			$('.chord a', mySong).attr('href', chord);
-			
-			$('#song_list').append(mySong);
-		}
-		
-		$('#btnAdd').button().click(function(){
-			$('#song_list').css('display', 'none');
-			$('#btnAdd').css('display', 'none');
-			$('#new_song').css('display', '');
-			$('#btnSave').css('display', '');
-		});
-		
-		$('#btnSave').button().click(function(){
-			// todo: make ajax request to page that will append the new info as JSON to songs.txt
-			var myData = new Array();
-			var mySong = new Array();
-			
-			mySong.push($('#txtTitle').val());
-			mySong.push($('#txtArtist').val());
-			
-			$.ajax({
-				type:"GET",
-				url: "/scripts/addSong.php",
-				data: { songData: mySong },
-				success: function(data){
-					alert(data);
-					write_song(mySong);
-				}
-			});
-			
-			$('#song_list').css('display', '');
-			$('#btnAdd').css('display', '');
-			$('#new_song').css('display', 'none');
-			$('#btnSave').css('display', 'none');
-		});
-		
-		$('#txtSearch').keyup(function(){
-			if($(this).val() != ''){
-				var search_string = $(this).val();
-				$('.song_container').each(function(){
-					if($(this).attr('title').indexOf(search_string) == -1){
-						$(this).css('display', 'none');
-					} else {
-						$(this).css('display', '');
-					}
-				});
-			} else {
-				$('.song_container').css('display', '');
-			}
-		});
+		load_songs();
 	});
 </script>
+
 <title>Songs</title>
 </head>
     <body>
@@ -128,8 +35,6 @@
 			<div class="list_header">Play</div>
 			<div class="list_header">Lyrics</div>
 			<div class="list_header">Chord</div>
-			<!--<div class="list_header">Lead</div>
-			<div class="list_header">Vocal</div>-->
 		</div>
 	</div>
 	<div id="btnAdd">Add Song</div>

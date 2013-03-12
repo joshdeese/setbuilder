@@ -1,11 +1,27 @@
-<?php
-	$filename = '../data/songs.txt';
-	$handler = fopen($filename, 'r');
-	$read = fread($handler, filesize($filename));
-	$liveData = array();
-	$liveData = json_decode($read);
+<?php	
+	include_once("mySqlConnect.php");
 	
-	fclose($handler);	
+	$musicDB = ConnectToDB();
 	
-	echo json_encode($liveData);
+	if(!$musicDB){
+		die("Could not connect: ".mysql_error());
+	}
+	
+	mysql_select_db('musicDB');
+	$sql = 'SELECT * FROM tblSongs ORDER BY title;';
+	$result = mysql_query($sql, $musicDB);
+	
+	echo recordSetToJson($result);
+	
+	function recordSetToJson($mysql_result){
+		$rs = array();
+		while($rs[] = mysql_fetch_assoc($mysql_result)){
+			// you don't really need to do anything here.
+		}
+		
+		$last = count($rs) - 1;
+		unset($rs[$last]);
+		
+		return json_encode($rs);
+	}
 ?>
