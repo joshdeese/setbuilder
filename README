@@ -4,6 +4,16 @@ This webApp will allow Praise & Worship teams to communicate song/setlist inform
 
 Admins will be able to add songs and upload files/URLs associated with those songs. Currently YouTube URLs and Lyric and Chord sheets can be associated with a song. Setlists will then be able to be created from songs and an e-mail can be automatically generated and sent to team members.
 
-More info to come.
+## Technical Info ##
+you need a file @ setlist/mySqlConnect.php with the following
+----------------------------------------------------------------------------
+<?php
+  function ConnectToDB()
+	{
+		$userDB = mysql_connect(/* connection string, username, password */);
+		return $userDB;
+	}
+?>
+----------------------------------------------------------------------------
 
 -Josh Deese
