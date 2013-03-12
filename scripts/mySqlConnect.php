@@ -1,7 +1,7 @@
 <?php
-  function ConnectToDB()
+	function ConnectToDB()
 	{
-		$userDB = mysql_connect(/* connection string, UserName, Password */);
+		$userDB = mysql_connect(":/tmp/mysql.sock", 'root', 'firebirdvii63');
 		return $userDB;
 	}
 ?>
