@@ -17,8 +17,7 @@ function load_songs(){
 			songs = data;
 		}
 	});
-	
-	$('.icon.play a', template).fancybox({ type: 'iframe'});
+		
 	$('.icon.pdf a', template).fancybox({ 
 		type: 'iframe',
 		autoSize : false,
@@ -31,6 +30,38 @@ function load_songs(){
 	for(var i=0; i<songs.length; i++){
 		write_song(songs[i]);
 	};
+
+	$('.icon.play a').each(function(){
+		if($(this).attr('href')){
+			$(this).fancybox({ type: 'iframe'});
+		} else {
+			$(this).click(function(){
+				var myBtn = $(this);
+				var linker = $('<div>').append('YouTube Link:').append($('<input>').attr('type', 'text').attr('id', 'link')).append($('<div>').attr('id', 'btnLinkSave').append('Save')).append($('<div>').attr('id', 'youtube_done'));
+				$('#btnLinkSave', linker).button().click(function(){
+					var songID = $(myBtn).attr('songID');
+					var myURI = parseUri($('#link').val());
+					var vidID = myURI.queryKey.v;
+					$.ajax({
+						type: "GET",
+						url: "/scripts/put_data.php",
+						data: {key: songID, update: 'YouTube', myData: vidID},
+						async: false,
+						success: function(data){
+							$('#youtube_done').append('Done');
+							$('.icon.play a', $('#'+songID)).attr('href', 'http://www.youtube.com/embed/' + vidID + '?autoplay=1');
+							$('.icon.play a', $('#'+songID)).unbind('click');
+							$('.icon.play a', $('#'+songID)).fancybox({type: 'iframe'});
+							linker.dialog('close');
+							$('.icon.play a', $('#'+songID)).click();
+						}
+					});
+				});
+				linker.dialog();
+			});
+		}
+	});
+
 
 	$('#btnAdd').button().click(function(){
 		$('#song_list').css('display', 'none');
@@ -95,11 +126,44 @@ function write_song(objSong){
 	if(objSong.YouTube){
 		$('.play a', mySong).attr('href', youtube);
 	} else {
-		$('.play a', mySong).attr('href', '/scripts/pdf_load.php?vidid=' + objSong.YouTube + '&type=play&id=' + objSong.id);
+		$('.play a', mySong).removeAttr('href').attr('songID', objSong.id);
 	}
 	
 	$('.lyrics a', mySong).attr('href', lyrics);
 	$('.chord a', mySong).attr('href', chord);
 	
 	$('#song_list').append(mySong);
+}
+
+// parseUri 1.2.2
+// (c) Steven Levithan <stevenlevithan.com>
+// MIT License
+
+function parseUri(str) {
+	var	o   = parseUri.options,
+		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+		uri = {},
+		i   = 14;
+
+	while (i--) uri[o.key[i]] = m[i] || "";
+
+	uri[o.q.name] = {};
+	uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+		if ($1) uri[o.q.name][$1] = $2;
+	});
+
+	return uri;
+};
+
+parseUri.options = {
+	strictMode: false,
+	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+	q:   {
+		name:   "queryKey",
+		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+	},
+	parser: {
+		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+	}
 }
