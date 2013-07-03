@@ -32,7 +32,6 @@
 			}
 		}}).submit();
 	});
-};
 </script>
 </html>
 

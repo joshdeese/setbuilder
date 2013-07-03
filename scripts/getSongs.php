@@ -22,6 +22,8 @@
 		$last = count($rs) - 1;
 		unset($rs[$last]);
 		
+		// 
+		
 		return json_encode($rs);
 	}
 ?>
