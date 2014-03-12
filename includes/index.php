@@ -7,6 +7,9 @@
 <meta name="author" content="" />
 <link rel="stylesheet" type="text/css" href="../style.css" media="screen" />
 <title></title>
+<script type="text/javascript">
+	//$(document).ready(function(){});
+</script>
 </head>
     <body>
         <div id="wrapper">

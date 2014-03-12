@@ -23,6 +23,11 @@ border-bottom:1px solid #ccc;
 border-top:1px solid #ccc;
 }
 
+#header_logo {
+	padding-top: 10px;
+	padding-left: 25px;
+}
+
 #header h2 {
 padding:10px;
 }
