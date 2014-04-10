@@ -1,0 +1,38 @@
+#set_songs {
+	padding-top: 20px;
+}
+
+#set_songs_table {
+	border-spacing: 0px;
+	border: 1px solid black;
+}
+
+#set_songs_table tr:nth-child(even) {
+    background-color: #A8A8A8;
+}
+
+#set_songs_table tr {
+	height: 21px;
+}
+
+#set_songs_table .table_head {
+	text-align: left;
+}
+
+.song_container {
+	cursor: pointer;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background-color: #A8A8A8;
+	width:	300px;
+}
+
+#song_list_container {
+	width: 300px;
+	height: 500px;
+	overflow: scroll;
+}
+
+.setlist_song {
+	cursor: pointer;
+}
