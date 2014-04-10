@@ -11,6 +11,9 @@
 		// todo: this is where users can upload new content
 		echo "This content doesn't yet exist";
 	}
+	
+	if($_SESSION["user_group"]==1)
+	{
 ?>
 <script type="text/javascript">
 	var uploader = $('<div>').append('Upload File:').append($('<form>').attr('id', 'imageform').attr('method', 'post').attr('enctype', 'multipart/form-data').attr('action', '/scripts/ajaximage.php').append($('<input>').attr('type', 'file').attr('name', 'photoimg').attr('id', 'photoimg').css('width', 250))).append($('<div>').attr('id', 'preview'));
@@ -34,7 +37,9 @@
 	});
 </script>
 </html>
-
+<?php
+	}
+?>
 <!--
 <div>
 	YouTube Link:

@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php
+	session_id();
+	session_start();
+?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -37,6 +40,10 @@
 			<div class="list_header">Chord</div>
 		</div>
 	</div>
+	<?php
+		if($_SESSION["user_group"]==1)
+		{
+	?>
 	<div id="btnAdd">Add Song</div>
 	<div id="new_song" style="display: none;">
 		<h2>New Song</h2>
@@ -46,6 +53,9 @@
 			<div id="btnSave">Save</div>
 		</form>
 	</div>
+	<?php
+		}
+	?>
 </div> <!-- end #content -->
 
 <?php include('../includes/sidebar.php'); ?>

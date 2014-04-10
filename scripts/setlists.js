@@ -1,5 +1,5 @@
-var template = $('<div>').addClass('set_container');
-template.append($('<div>').addClass('set_info').append($('<span>').addClass('set')));
+var template = $('<tr>').addClass('set_container');
+template.append($('<td>').addClass('date')).append($('<td>').addClass('title'));
 
 function load_sets(){
 	// ID, Date, Title, Notes
@@ -23,11 +23,12 @@ function load_sets(){
 function write_set(objSet){
 	var mySet = template.clone();
 	
-	mySet.attr('id', objSet.ID).attr('title', objSet.Title).attr('date', objSet.Date).attr('notes', objSet.Notes);
+	mySet.attr('setID', objSet.id).attr('title', objSet.Title).attr('date', objSet.Date).attr('notes', objSet.Notes);
 	
-	$('.set', mySet).append(objSet.Date + ' - ' + objSet.Title);
+	$('.date', mySet).append(objSet.Date);
+	$('.title', mySet).append(objSet.Title);
 		
-	$('#sets_list').append(mySet);
+	$('#set_list_table').append(mySet);
 }
 
 // parseUri 1.2.2
@@ -61,4 +62,8 @@ parseUri.options = {
 		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
 		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
 	}
+}
+
+$.fn.choose_set = function(){
+	window.location.href = '/view_set?id='+$(this).attr('setID');
 }

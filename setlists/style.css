@@ -1,0 +1,8 @@
+#sets_list_header div{
+	display: inline-block;
+	width: 75px;
+}
+
+.set_container{
+	cursor: pointer;
+}

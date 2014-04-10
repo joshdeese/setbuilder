@@ -20,7 +20,7 @@
 
 <div id="content">
 	
-	<!-- Page Content Goes Here --!>
+	<!-- Page Content Goes Here -->
 
 </div> <!-- end #content -->
 

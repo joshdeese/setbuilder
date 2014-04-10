@@ -37,7 +37,6 @@
 			<div id="content">
 				<?php
 					$myPath = $_SERVER['PHP_SELF'];
-					$root = $_SERVER['SERVER_ADDR'];
 					
 					if($_SESSION["login_fail"]!=null)
 					{
@@ -49,7 +48,7 @@
 					echo '<p>Password: <input type="password" name="password" /></p>';
 					echo '<p><input type="submit" value="Login" /></p>';
 					echo '</form>';
-					echo '<a href="http://'.$root.'/register">register</a>';
+					echo '<a href="/register">register</a>';
 				?>
 			</div> <!-- end #content -->
 			

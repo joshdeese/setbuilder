@@ -2,11 +2,13 @@
 	<a href="/">Home</a>
 	<a href="/songs">Songs</a>
 	<a href="/setlists">Set Lists</a>
-	<a href="/members">Members</a>
 	<?php
-		if($_SESSION["user_group"]==5)
+		if($_SESSION["user_group"]==1)
 		{
-			echo '<a href="/admin">Admin</a>';
+	?>
+		<a href="/members">Members</a>
+		<a href="/admin">Admin</a>
+	<?php
 		}
 	?>
 </div> <!-- end #nav -->

@@ -21,12 +21,12 @@
 			exit;
 		}
 		
-		mysql_select_db("myDB", $userDB);
-		$sqlFindUser = 'SELECT username, password, id FROM tblUsers WHERE username="'.$user.'"';
+		mysql_select_db('musicDB');
+		$sqlFindUser = 'SELECT Username, Password, id FROM tblUser WHERE Username="'.$user.'"';
 		$rUser = mysql_query($sqlFindUser, $userDB);
 		if (mysql_num_rows($rUser)>0)
 		{
-			$sqlUserPrivelage = 'SELECT GroupID FROM tblPrivelage WHERE UserID = "'.mysql_result($rUser,0,2).'";';
+			$sqlUserPrivelage = 'SELECT AccessID FROM tblUserAccess WHERE UserID = "'.mysql_result($rUser,0,2).'";';
 			$rPrivelage = mysql_query($sqlUserPrivelage, $userDB);
 		} else
 		{
@@ -72,14 +72,14 @@
 			if ($passw == $passw2)
 			{
 				$crypt = hash("sha256", $passw);
-				mysql_select_db("myDB", $userDB);
-				$sqlAddUser = "INSERT INTO tblUsers(UserName, Password) VALUES('".$user."', '".$crypt."');";
+				mysql_select_db('musicDB');
+				$sqlAddUser = "INSERT INTO tblUser(Username, Password) VALUES('".$user."', '".$crypt."');";
 				mysql_query($sqlAddUser, $userDB);
-				$sqlFindUser = "SELECT ID, UserName FROM tblUsers WHERE (UserName = '".$user."');";
+				$sqlFindUser = "SELECT ID, Username FROM tblUser WHERE (Username = '".$user."');";
 				$myUser = mysql_query($sqlFindUser, $userDB);
 				$_SESSION["auth_username"] = mysql_result($myUser,0,1);
 				$_SESSION["user_id"] = mysql_result($myUser,0,0);
-				$sqlUserPrivelage = "SELECT GroupID FROM tblPrivelage WHERE UserID = '".$_SESSION["user_id"]."';";
+				$sqlUserPrivelage = "SELECT AccessID FROM tblUserAccess WHERE UserID = '".$_SESSION["user_id"]."';";
 				$myUserGroup = mysql_query($sqlUserPrivelage, $userDB);
 				if (mysql_num_rows($myUserGroup)>0)
 				{

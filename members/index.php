@@ -6,42 +6,63 @@
 <meta name="keywords" content="" />
 <meta name="author" content="" />
 <link rel="stylesheet" type="text/css" href="../style.css" media="screen" />
-<?php include('includes/headfiles.php'); ?>
+<?php include('../includes/headfiles.php'); ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var template = $('<tr>').append($('<td>').addClass('member_name')).append($('<td>').addClass('member_email')).append($('<td>').addClass('member_username'));
+		
+		$.ajax({
+			type: "GET",
+			dataType: "json",
+			url: "/scripts/getUsers.php",
+			async: false,
+			success: function(data){
+				for(var i=0; i<data.length; i++){
+					var row = template.clone();
+					$('.member_name', row).append(data[i].FName + ' ' + data[i].LName);
+					$('.member_email', row).append(data[i].Contact);
+					$('.member_username', row).append(data[i].Username);
+					$('#members_table').append(row);
+				}
+			}
+		});
+	});
+</script>
 <title>Members</title>
 </head>
-    <body>
-        <div id="wrapper">
+<body>
+<div id="wrapper">
 
 <?php include('../includes/header.php'); ?>
 
 <?php include('../includes/nav.php'); ?>
 
 <div id="content">
-	
+	<?php
+		if($_SESSION["user_group"]==1){
+	?>
 	<h2>Members</h2>
 	
-	<ul>
-		<li id="member_00" class="member">Marnie Beaver</li>
-		<li id="member_01" class="member">Tim Beaver</li>
-		<li id="member_02" class="member">Tim Caffell</li>
-		<li id="member_03" class="member">Josh Deese</li>
-		<li id="member_04" class="member">Mike Deese</li>
-		<li id="member_05" class="member">Sharon Gammons</li>
-		<li id="member_06" class="member">Wayne Jones</li>
-		<li id="member_07" class="member">Adam McGinnis</li>
-		<li id="member_08" class="member">Joseph Molina</li>
-		<li id="member_09" class="member">Mark Morgan</li>
-		<li id="member_10" class="member">Warren Parton</li>
-		<li id="member_11" class="member">Chase Snelgrove</li>
-		<li id="member_12" class="member">Lynn Westafer</li>
-		<li id="member_13" class="member">Kassie Wilson</li>
-	</ul>
+	<table id="members_table">
+		<tr>
+			<th>Name</th>
+			<th>E-Mail</th>
+			<th>UserName</th>
+		<tr>
+	</table>
+	<?php
+		} else {
+	?>
+		<h2>You do not have permission to view this page</h2>
+	<?php
+		}
+	?>	
 </div> <!-- end #content -->
 
 <?php include('../includes/sidebar.php'); ?>
 
 <?php include('../includes/footer.php'); ?>
 
-        </div> <!-- End #wrapper -->
-    </body>
+</div> <!-- End #wrapper -->
+</body>
 </html>

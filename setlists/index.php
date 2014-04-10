@@ -35,6 +35,10 @@
 						}
 					});
 				});
+				
+				$('.set_container').click(function(){
+					$(this).choose_set();
+				});
 			});
 		</script>
 		
@@ -50,16 +54,27 @@
 			
 			<h2>Set Lists</h2>
 			
+			<?php
+				if($_SESSION["user_group"]==1){
+			?>
 			<div id="add_set">New</div>
-			
+			<?php
+				}
+			?>
 			<div id="sets_list">
 				<div id="searchbox">
 					<input type="text" id="txtSearch" />
 				</div>
-				<div id="sets_list_header">
+				<!--<div id="sets_list_header">
 					<div class="list_date">Date</div>
 					<div class="list_title">Title</div>
-				</div>
+				</div>-->
+				<table id="set_list_table" style="text-align: left;">
+					<tr>
+						<th>Date</td>
+						<th>Title</td>
+					</tr>
+				</table>
 			</div>
 		</div> <!-- end #content -->
 		
