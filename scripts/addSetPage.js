@@ -1,14 +1,31 @@
 ﻿// todo: now that we're using backbone, dragging a song to a setlist adds an new line, but doesn't have any data in it
-//   this is probably because there's an extra <div> wrapper on each song
+//   this is probably because there's an extra <div> wrapper on each song.
 //   However, double clicking a song will add the correct data, because I've corrected that method
 
+var singers;
+
 var pageSetup = function(){
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "/scripts/getSingers.php",
+		async: false,
+		success: function(data){
+			singers = data;
+		}
+	});
+	
 	$( "#set_songs_table" ).droppable({
     activeClass: "ui-state-default",
     hoverClass: "ui-state-hover",
     accept: ":not(.ui-sortable-helper)",
     drop: function(event, ui){
-	    dropSong(ui.draggable);
+	    var songID = ui.draggable.attr('id');
+	    var objSong = $.grep(Songs.songs.models, function(e){
+	    	return e.id == songID;
+	    });
+	    
+	    dropSong(objSong[0].attributes);
     }
   }).sortable({
     items: "tr:not(.placeholder, .empty)",
@@ -192,6 +209,12 @@ function dropSong(draggable){
 	}
 	
 	$('.leadvox', $('.just_added')).append($('<select>').addClass('leadvox_select'));
+	
+	for(var i=0; i<singers.length; i++){
+		$('.just_added .leadvox_select').append($('<option>').attr('value', singers[i].id).append(singers[i].FName + ' ' + singers[i].LName));
+	}
+	
+	$('.just_added .leadvox_select').val(draggable.LeadVoc);
 	
 	var mySong = $('.just_added', $('#set_songs_table'))[0];
 	$(mySong).removeClass('just_added').attr('songID', draggable.id).attr('title', draggable.title).attr('artist', draggable.artist).attr('pdf', draggable.PDF).attr('youtube', draggable.YouTube);

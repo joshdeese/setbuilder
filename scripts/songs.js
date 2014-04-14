@@ -110,6 +110,36 @@ function load_songs(){
 			$('.song_container').css('display', '');
 		}
 	});
+	
+	$.ajax({
+		type: "GET",
+		dataType: "json",
+		url: "/scripts/getSingers.php",
+		async: false,
+		success: function(data){
+			for(var i=0; i<data.length; i++){
+				$('#song_lead_voc_select').append($('<option>').attr('value', ).html(data[i].));
+			}
+		}
+	});
+	
+	$('.song_container').click(function(){
+		$('#song_id').html($(this).attr('id'));
+		$('#song_title').html($(this).attr('title'));
+		$('#song_artist').html($(this).attr('artist'));
+		$('#song_view').css('display', '');
+		$('#song_list').css('display', 'none');
+		$('#btnAdd').css('display', 'none');
+	});
+	
+	$('#song_view .btnDone').button().click(function(){
+		$('#song_id').html('');
+		$('#song_title').html('');
+		$('#song_artist').html('');
+		$('#song_view').css('display', 'none');
+		$('#song_list').css('display', '');
+		$('#btnAdd').css('display', '');
+	});
 }
 
 function write_song(objSong){

@@ -56,6 +56,28 @@
 	<?php
 		}
 	?>
+	
+	<div id="song_view" style="display: none;">
+		<div>
+			<div class="song_label">ID: </div>
+			<div id="song_id" class="song_data"></div>
+		</div>
+		<div>
+			<div class="song_label">Title: </div>
+			<div id="song_title" class="song_data"></div>
+		</div>
+		<div>
+			<div class="song_label">Artist: </div>
+			<div id="song_artist" class="song_data"></div>
+		</div>
+		<div>
+			<div class="song_lable">Lead Vocals: </div>
+			<div id="song_lead_voc" class="song_data">
+				<select id="song_lead_voc_select"></select>
+			</div>
+		</div>
+		<div class="btnDone">Done</div>
+	</div>
 </div> <!-- end #content -->
 
 <?php include('../includes/sidebar.php'); ?>

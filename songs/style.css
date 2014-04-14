@@ -20,6 +20,15 @@
 	width: 65px;
 }
 
+.song_container {
+	cursor: pointer;
+}
+
+.song_container:hover{
+	background-color: #6383ec;
+	color: white;
+}
+
 .song_info {
 	width: 500px;
 	display: inline-block;
@@ -51,4 +60,17 @@
 
 .icon.vocal a{
 	background-position: -218px 0;
+}
+
+.song_label {
+	font-weight: bold;
+	display: inline;
+}
+
+.song_data {
+	display: inline;
+}
+
+.btnDone {
+	margin-top: 10px;
 }
